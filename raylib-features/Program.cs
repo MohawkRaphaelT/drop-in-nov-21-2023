@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+//using static Raylib_cs.Raylib;
 
 namespace raylib_features
 {
@@ -43,6 +44,13 @@ namespace raylib_features
         static void Update()
         {
             // Your game code run each frame here
+        }
+
+        static Texture2D LoadTexture2D(string fileName)
+        {
+            Image image = Raylib.LoadImage($"../../../../resources/textures/{fileName}");
+            Texture2D texture = Raylib.LoadTextureFromImage(image);
+            return texture;
         }
     }
 }
