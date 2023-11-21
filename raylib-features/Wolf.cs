@@ -79,7 +79,31 @@ namespace raylib_features
 
         public void KeepInScreenBounds()
         {
+            // Variables in our code for our player
+            // Notice how the position and size could be anything we want
+            Vector2 size = new Vector2(texture.Width, texture.Height);
 
+            // Let's also assume we have screen dimensions available
+            float screenWidth = Raylib.GetScreenWidth();
+            float screenHeight = Raylib.GetScreenHeight();
+
+            // Compute each side of the player
+            float playerLeftEdge = position.X;
+            float playerRightEdge = position.X + size.X;
+            float playerTopEdge = position.Y;
+            float playerBottomEdge = position.Y + size.Y;
+
+            // Check each side and see if player is out-of-bounds
+            bool isLeftOfWindow = playerLeftEdge <= 0;            // left check
+            bool isRightOfWindow = playerRightEdge >= screenWidth;  // right check
+            bool isAboveWindow = playerTopEdge <= 0;            // top check
+            bool isBelowWindow = playerBottomEdge >= screenHeight; // bottom check
+
+            if (isLeftOfWindow || isRightOfWindow)
+                direction.X = -direction.X;
+
+            if (isAboveWindow || isBelowWindow)
+                direction.Y = -direction.Y;
         }
 
         public void Move()
