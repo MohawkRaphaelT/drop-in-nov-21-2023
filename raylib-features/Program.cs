@@ -55,6 +55,8 @@ namespace raylib_features
         {
             for (int i = 0; i < wolves.Length; i++)
             {
+                wolves[i].Move();
+                wolves[i].KeepInScreenBounds();
                 wolves[i].Draw();
             }
         }

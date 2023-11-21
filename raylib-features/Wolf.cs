@@ -14,6 +14,13 @@ namespace raylib_features
         public Wolf()
         {
             texture = LoadTexture2D("howl.png");
+            Random random = new Random();
+
+            float randomAngle = random.NextSingle() * MathF.Tau;
+            direction = new Vector2(MathF.Cos(randomAngle), MathF.Sin(randomAngle));
+
+            float percentage = random.NextSingle();
+            speedInPixels = 100 + 200 * percentage;
         }
 
         public void Draw()
