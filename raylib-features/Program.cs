@@ -1,4 +1,5 @@
 ﻿using Raylib_cs;
+using System.Numerics;
 //using static Raylib_cs.Raylib;
 
 namespace raylib_features
@@ -7,7 +8,7 @@ namespace raylib_features
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
-        static Texture2D wolf;
+        static Wolf[] wolves;
 
         static void Main(string[] args)
         {
@@ -39,19 +40,25 @@ namespace raylib_features
 
         static void Setup()
         {
-            wolf = LoadTexture2D("howl.png");
+            wolves = new Wolf[5];
+            for (int i = 0; i < wolves.Length; i++)
+            {
+                wolves[i] = new Wolf();
+
+                int x = 100 + i * 100;
+                int y = 100;
+                wolves[i].position = new Vector2(x, y);
+            }
         }
 
         static void Update()
         {
-            Raylib.DrawTexture(wolf, 100, 100, Color.WHITE);
+            for (int i = 0; i < wolves.Length; i++)
+            {
+                wolves[i].Draw();
+            }
         }
 
-        static Texture2D LoadTexture2D(string fileName)
-        {
-            Image image = Raylib.LoadImage($"../../../../resources/textures/{fileName}");
-            Texture2D texture = Raylib.LoadTextureFromImage(image);
-            return texture;
-        }
+
     }
 }
