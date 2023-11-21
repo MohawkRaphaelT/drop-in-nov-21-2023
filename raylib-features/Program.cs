@@ -7,6 +7,7 @@ namespace raylib_features
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
+        static Texture2D wolf;
 
         static void Main(string[] args)
         {
@@ -24,7 +25,7 @@ namespace raylib_features
                 // Enable drawing to the canvas (window)
                 Raylib.BeginDrawing();
                 // Clear the canvas with one color
-                Raylib.ClearBackground(Color.WHITE);
+                Raylib.ClearBackground(Color.RAYWHITE);
 
                 // Your game code here. This is a function YOU define.
                 Update();
@@ -38,12 +39,12 @@ namespace raylib_features
 
         static void Setup()
         {
-            // Your one-time setup code here
+            wolf = LoadTexture2D("howl.png");
         }
 
         static void Update()
         {
-            // Your game code run each frame here
+            Raylib.DrawTexture(wolf, 100, 100, Color.WHITE);
         }
 
         static Texture2D LoadTexture2D(string fileName)
