@@ -16,6 +16,7 @@ namespace raylib_features
             Raylib.InitWindow(800, 600, title);
             // Set the target frames-per-second (FPS)
             Raylib.SetTargetFPS(60);
+            Raylib.InitAudioDevice();
 
             // Setup your game. This is a function YOU define.
             Setup();

@@ -5,6 +5,7 @@ namespace raylib_features
 {
     public class Wolf
     {
+        public Sound collideSound;
         public Texture2D texture;
         public Vector2 position;
         public Vector2 direction;
@@ -13,12 +14,16 @@ namespace raylib_features
 
         public Wolf()
         {
+            // Load assets
+            collideSound = LoadSound("coin.wav");
             texture = LoadTexture2D("howl.png");
+            
+            // Set random values
             Random random = new Random();
-
+            // Set random direction
             float randomAngle = random.NextSingle() * MathF.Tau;
             direction = new Vector2(MathF.Cos(randomAngle), MathF.Sin(randomAngle));
-
+            // Set random speed between 100-300
             float percentage = random.NextSingle();
             speedInPixels = 100 + 200 * percentage;
         }
@@ -81,6 +86,9 @@ namespace raylib_features
                 Vector2 deltaPositionA2B = wolf.position - position;
                 Vector2 normal = Vector2.Normalize(deltaPositionA2B);
                 direction = -normal;
+
+                // play sound
+                Raylib.PlaySound(collideSound);
             }
         }
 
@@ -137,6 +145,12 @@ namespace raylib_features
             Image image = Raylib.LoadImage($"../../../../resources/textures/{fileName}");
             Texture2D texture = Raylib.LoadTextureFromImage(image);
             return texture;
+        }
+
+        Sound LoadSound(string fileName)
+        {
+            Sound sound = Raylib.LoadSound($"../../../../resources/sounds/{fileName}");
+            return sound;
         }
     }
 }
