@@ -84,6 +84,18 @@ namespace raylib_features
             }
         }
 
+        public void Collide(Wolf[] wolves)
+        {
+            foreach (Wolf wolf in wolves)
+            {
+                bool isSameWolf = wolf == this;
+                if (!isSameWolf)
+                {
+                    Collide(wolf);
+                }
+            }
+        }
+
         public void KeepInScreenBounds()
         {
             // Variables in our code for our player
