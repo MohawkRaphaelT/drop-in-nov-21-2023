@@ -57,6 +57,16 @@ namespace raylib_features
             {
                 wolves[i].Move();
                 wolves[i].KeepInScreenBounds();
+
+                foreach (Wolf wolf in wolves)
+                {
+                    bool isSameWolf = wolves[i] == wolf;
+                    if (!isSameWolf)
+                    {
+                        wolves[i].Collide(wolf);
+                    }
+                }
+
                 wolves[i].Draw();
             }
         }

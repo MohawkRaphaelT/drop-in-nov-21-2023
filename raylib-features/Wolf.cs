@@ -27,7 +27,7 @@ namespace raylib_features
         {
             Raylib.DrawTextureV(texture, position, Color.WHITE);
 
-            Color boxColor = Color.RED;
+            Color boxColor = Color.BLANK;
             Vector2 topLeft = new Vector2(position.X, position.Y);
             Vector2 bottomLeft = new Vector2(position.X, position.Y + texture.Height);
             Vector2 bottomRight = new Vector2(position.X + texture.Width, position.Y + texture.Height);
@@ -69,7 +69,7 @@ namespace raylib_features
 
             // If just want to know if they overlap, we can combine all these Boolean results.
             // We overlap is any result is true, so we combine here with the Logical OR operator.
-            bool doesOverlap = doesOverlapLeft || doesOverlapRight || doesOverlapTop || doesOverlapBottom;
+            bool doesOverlap = doesOverlapLeft && doesOverlapRight && doesOverlapTop && doesOverlapBottom;
             return doesOverlap;
         }
 
@@ -106,10 +106,12 @@ namespace raylib_features
             bool isAboveWindow = playerTopEdge <= 0;            // top check
             bool isBelowWindow = playerBottomEdge >= screenHeight; // bottom check
 
-            if (isLeftOfWindow || isRightOfWindow)
+            if ((isLeftOfWindow && direction.X < 0) ||
+                (isRightOfWindow && direction.X > 0))
                 direction.X = -direction.X;
 
-            if (isAboveWindow || isBelowWindow)
+            if ((isAboveWindow && direction.Y < 0) ||
+                (isBelowWindow && direction.Y > 0))
                 direction.Y = -direction.Y;
         }
 
