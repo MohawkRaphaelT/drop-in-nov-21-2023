@@ -16,7 +16,7 @@ namespace raylib_features
             Raylib.InitWindow(800, 600, title);
             // Set the target frames-per-second (FPS)
             Raylib.SetTargetFPS(60);
-            Raylib.InitAudioDevice();
+            //Raylib.InitAudioDevice();
 
             // Setup your game. This is a function YOU define.
             Setup();
@@ -60,6 +60,21 @@ namespace raylib_features
                 wolves[i].KeepInScreenBounds();
                 wolves[i].Collide(wolves);
                 wolves[i].Draw();
+            }
+            DrawTime();
+        }
+
+        static void DrawTime()
+        {
+            double timeToPlay = 10 * 60; // 10 minutes
+            double timeRemaining = timeToPlay - Raylib.GetTime();
+            int minutes = (int)(timeRemaining / 60);
+            int seconds = (int)(timeRemaining % 60);
+            Raylib.DrawText($"{minutes}:{seconds:00}", 25, 25, 32, Color.BLACK);
+
+            if (Raylib.GetTime() > timeToPlay)
+            {
+                // time is up
             }
         }
 
