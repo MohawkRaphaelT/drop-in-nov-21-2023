@@ -8,7 +8,9 @@ namespace raylib_features
     {
         // If you need variables in the Program class (outside functions), you must mark them as static
         static string title = "Game Title";
-        static Wolf[] wolves;
+        //static Wolf[] wolves;
+        static Level[] levels;
+        static int currentLevelIndex = 0;
 
         static void Main(string[] args)
         {
@@ -25,9 +27,7 @@ namespace raylib_features
             while (!Raylib.WindowShouldClose())
             {
                 // Enable drawing to the canvas (window)
-                Raylib.BeginDrawing();
-                // Clear the canvas with one color
-                Raylib.ClearBackground(Color.RAYWHITE);
+                Raylib.BeginDrawing();              
 
                 // Your game code here. This is a function YOU define.
                 Update();
@@ -41,27 +41,26 @@ namespace raylib_features
 
         static void Setup()
         {
-            wolves = new Wolf[5];
-            for (int i = 0; i < wolves.Length; i++)
+            levels = new Level[]
             {
-                wolves[i] = new Wolf();
-
-                int x = 100 + i * 100;
-                int y = 100;
-                wolves[i].position = new Vector2(x, y);
-            }
+                Level.CreateLevel1(),
+                Level.CreateLevel2(),
+            };
         }
 
         static void Update()
         {
-            for (int i = 0; i < wolves.Length; i++)
-            {
-                wolves[i].Move();
-                wolves[i].KeepInScreenBounds();
-                wolves[i].Collide(wolves);
-                wolves[i].Draw();
-            }
+            Raylib.ClearBackground(levels[currentLevelIndex].color); 
+            levels[currentLevelIndex].UpdateWolves();
+
             DrawTime();
+
+            if (Raylib.IsKeyPressed(KeyboardKey.KEY_SPACE))
+            {
+                currentLevelIndex++;
+                currentLevelIndex %= levels.Length;
+                levels[currentLevelIndex].Reset();
+            }
         }
 
         static void DrawTime()
